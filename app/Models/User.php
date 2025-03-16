@@ -5,13 +5,17 @@ declare(strict_types = 1);
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use OwenIt\Auditing\Contracts\Auditable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements Auditable
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
+    use \OwenIt\Auditing\Auditable;
+
+    /** @use HasFactory<UserFactory> */
     use HasFactory;
     use Notifiable;
 
