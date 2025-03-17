@@ -6,6 +6,7 @@ namespace App\Providers;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 use Opcodes\LogViewer\Facades\LogViewer;
 
@@ -27,6 +28,7 @@ class AppServiceProvider extends ServiceProvider
         $this->setupLogViewer();
         $this->configModels();
         $this->configCommands();
+        $this->configUrls();
     }
 
     /**
@@ -69,5 +71,15 @@ class AppServiceProvider extends ServiceProvider
         DB::prohibitDestructiveCommands(
             app()->isProduction()
         );
+    }
+
+    /**
+     * Configures the application URLs to enforce HTTPS protocol for all routes.
+     *
+     * @return void
+     */
+    public function configUrls(): void
+    {
+        URL::forceHttps();
     }
 }
